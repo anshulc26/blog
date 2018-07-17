@@ -1,0 +1,80 @@
+<!-- Navbar
+============= -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<%= root_path %>">Blog</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+          <li class="hidden-sm hidden-md"><a href="<%= blog_posts_path %>">My Blog Post</a></li>
+        <% end %>
+        <li class="hidden-sm hidden-md"><a href="<%= about_us_path %>">About Us</a></li>
+        <li class="hidden-sm hidden-md"><a href="<%= team_path %>">Team</a></li>
+        <li class="hidden-sm hidden-md"><a href="<%= contact_index_path %>">Contact us</a></li>
+        <% if user_signed_in? && (current_user.has_role? :super_admin) %>
+          <li class="hidden-sm hidden-md"><a href="<%= admin_dashboard_index_path %>">Dashboard</a></li>
+        <% end %>
+        <!-- Profile links for extra small screens -->
+        <% if !user_signed_in? %>
+          <li class="visible-xs"><a href="<%= new_user_registration_path %>">Sign Up</a></li>
+          <li class="visible-xs"><a href="<%= new_user_session_path %>">Sign In</a></li>
+        <% else %>
+          <li class="visible-xs"><a href="<%= profile_path( username: current_user.username ) %>">Profile</a></li>
+          <li class="visible-xs"><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+        <% end %>
+      </ul>
+      <!-- Search form for extra small screens -->
+      <form class="navbar-form navbar-left visible-xs" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-blue">Go!</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right hidden-xs">
+        <% if !user_signed_in? %>
+          <!-- Sign in & Sign up -->
+          <li id="sign-up" class="show"><a href="<%= new_user_registration_path %>">Sign Up</a></li>
+          <li id="sign-in" class="show"><a href="<%= new_user_session_path %>">Sign In</a></li>
+        <% else %>
+          <!-- Signed in. Profile Menu -->
+          <li id="cogs-menu" class="show">
+            <a href="<%= edit_profile_path( username: current_user.username ) %>">
+              <i class="fa fa-gears fa-lg"></i>
+            </a>
+          </li>
+          <li id="profile-menu" class="dropdown show">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.fullname %> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li class="account">
+                <style type="text/css">li.account .avatar { background-image: url('<%= current_user.photo_url_thumb %>') }</style>
+                <div class="avatar"></div>
+                <p><b><%= current_user.fullname %></b><br /><%= current_user.email %></p>
+                <p><a href="<%= profile_path( username: current_user.username ) %>">Profile</a> | <%= link_to "Sign out", destroy_user_session_path, :method => :delete, id: 'sign-out' %></p>
+                <div class="clearfix"></div>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+        <!-- Search Button -->
+        <li id="search">
+          <a href="#" id="search-btn"><i class="fa fa-search" id="search-icon"></i> Search</a>
+          <div class="search-box hidden" id="search-box">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+$("li .tab").each(function() {
+	$(this).removeClass("active");
+});
+$("#profile").addClass("active");
+$("#profile").css({'text-decoration':'none', 'outline':'none'});
+
+$("#tab_content").html("<%= escape_javascript(render partial: 'profile')%>");
+
+$(function(){
+   history.pushState(null, "", "<%= profile_path( username: current_user.username ) %>")
+  $(window).bind("popstate", function(){
+    $.getScript(location.href)
+  })
+})

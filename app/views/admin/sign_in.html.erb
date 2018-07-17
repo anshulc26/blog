@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="gt-ie8 gt-ie9 not-ie">
+	<head>
+		<title>Blog</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="description" content="Blog">
+		<meta name="author" content="Blog">
+		<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&amp;subset=latin" rel="stylesheet" type="text/css">
+		<link href="/assets/admin/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<link href="/assets/admin/blog-admin.min.css" rel="stylesheet" type="text/css">
+		<link href="/assets/admin/pages.min.css" rel="stylesheet" type="text/css">
+		<link href="/assets/admin/rtl.min.css" rel="stylesheet" type="text/css">
+		<link href="/assets/admin/themes.min.css" rel="stylesheet" type="text/css">
+		<link href="/assets/admin/sign_in.css" rel="stylesheet" type="text/css">
+
+		<%= javascript_include_tag "admin" %>
+		<script>var init = [];</script>
+		<%= csrf_meta_tags %>
+	</head>
+
+	<body class="theme-default page-signin">
+		<div id="page-signin-bg">
+			<div class="overlay"></div>
+			<img src="/assets/signin-bg.jpg" alt="">
+		</div>
+
+		<div class="signin-container">
+			<div class="signin-info">
+				<a href="<%= root_path %>" class="logo">
+					<img src="/assets/logo.png" alt="" style="margin-top: 55px;width: 200px;">
+				</a>
+			</div>
+
+			<div class="signin-form">
+
+				<%= form_for(@resource, as: @resource_name, url: user_session_path) do |f| %>
+					<div class="signin-text">
+						<span>Sign In to your account</span>
+					</div>
+
+					<div class="form-group w-icon">
+						<%= f.text_field :login, autofocus: true, class: "form-control input-lg", placeholder: "Username or Email", style: "font-size: 15px;padding-left: 56px;" %>
+						<span class="fa fa-user signin-form-icon"></span>
+					</div>
+
+					<div class="form-group w-icon">
+						<%= f.password_field :password, autocomplete: "off", class: "form-control input-lg", placeholder: "Password" %>
+						<span class="fa fa-lock signin-form-icon"></span>
+					</div>
+
+					<div class="form-actions">
+						<input type="submit" value="SIGN IN" class="signin-btn bg-primary">
+						<a href="#forgot-password" class="forgot-password" id="forgot-password-link">Forgot your password?</a>
+					</div>
+				<% end %>
+
+				<!-- Password reset form -->
+				<div class="password-reset-form" id="password-reset-form">
+					<div class="header">
+						<div class="signin-text">
+							<span>Password reset</span>
+							<div class="close">&times;</div>
+						</div>
+					</div>
+					
+					<%= form_for(@resource, as: @resource_name, url: user_password_path, remote: true, html: { method: :post, id: 'password-reset' }) do |f| %>
+						<div class="form-group w-icon">
+							<%= f.email_field :email, id: "password_email", class: "form-control input-lg", placeholder: "Enter your email", style: "font-size: 15px;padding-left: 56px;" %>
+							<span class="fa fa-envelope signin-form-icon"></span>
+						</div>
+          	<p id="reset_message" class="error"></p>
+						<div class="form-actions">
+							<input type="submit" value="SEND PASSWORD RESET LINK" class="signin-btn bg-primary" id='send_reset'>
+						</div>
+					<% end %>
+				</div>
+				<!-- / Password reset form -->
+			</div>
+		</div>
+
+		<script src="/assets/admin/bootstrap.min.js"></script>
+		<script src="/assets/admin/blog-admin.min.js"></script>
+
+		<script type="text/javascript">
+			init.push(function () {
+				var $ph  = $('#page-signin-bg'),
+				    $img = $ph.find('> img');
+
+				$(window).on('resize', function () {
+					$img.attr('style', '');
+					if ($img.height() < $ph.height()) {
+						$img.css({
+							height: '100%',
+							width: 'auto'
+						});
+					}
+				});
+			});
+
+			// Show/Hide password reset form on click
+			init.push(function () {
+				$('#forgot-password-link').click(function () {
+					$('#password-reset-form').fadeIn(400);
+					return false;
+				});
+				$('#password-reset-form .close').click(function () {
+					$('#password-reset-form').fadeOut(400);
+					return false;
+				});
+			});
+
+			// Setup Sign In form validation
+			init.push(function () {
+				$("#new_user").validate({ focusInvalid: true, errorPlacement: function () {} });
+				
+				// Validate email
+				$("#user_login").rules("add", {
+					required: true
+				});
+
+				// Validate password
+				$("#user_password").rules("add", {
+					required: true,
+					minlength: 8
+				});
+			});
+
+			// Setup Password Reset form validation
+			init.push(function () {
+				$("#password-reset").validate({ focusInvalid: true, errorPlacement: function () {} });
+				
+				// Validate email
+				$("#password_email").rules("add", {
+					required: true,
+					email: true
+				});
+			});
+
+			$(document).ready(function(){
+				$("#password-reset").on("submit", function() {
+			    $("#reset_message").hide();
+			    // $("#send_reset").css('cursor', 'wait');
+			    // $("#send_reset").attr('disabled', 'disabled');
+			  });
+
+			  $("#password-reset").on("ajax:success", function(e, data, status, xhr) {
+			    json_data = $.parseJSON(xhr.responseText);
+			    var id = json_data.id;
+			    if (!id) {
+			      $("#reset_message").show();
+			      $("#reset_message").removeClass("message-success");
+			      $("#reset_message").addClass("message-error");
+			      $("#reset_message").html("Email not found");
+			      $("#send_reset").css('cursor', 'pointer');
+			      $('#send_reset').removeAttr('disabled');
+			    } else {
+			      $("#reset_message").show();
+			      $("#reset_message").removeClass("message-error");
+			      $("#reset_message").addClass("message-success");
+			      $("#password_email").val("");
+			      $("#reset_message").html("You will receive an email with instructions on how to reset your password in a few minutes");
+			      $("#send_reset").css('cursor', 'pointer');
+			      $('#send_reset').removeAttr('disabled');
+			    }
+			  }).on("ajax:error", function(e, xhr, status, error) {
+			    $("#reset_message").show();
+			    $("#reset_message").removeClass("message-success");
+			    $("#reset_message").addClass("message-error");
+			    $("#reset_message").html("Error");
+			    $("#send_reset").css('cursor', 'pointer');
+			    $('#send_reset').removeAttr('disabled');
+			  });
+			});
+			window.BlogAdmin.start(init);
+		</script>
+	</body>
+</html>

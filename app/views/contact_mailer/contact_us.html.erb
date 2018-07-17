@@ -1,0 +1,6 @@
+<p>Name: <%= @contact.name %> </p>
+<p>Email: <%= @contact.email %> </p>
+<% if @contact.number.present? %>
+	<p>Number: <%= @contact.number %></p>
+<% end %>
+<p>Message: <%= @contact.message %> </p>

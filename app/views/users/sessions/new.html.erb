@@ -1,0 +1,88 @@
+<!-- Main body
+================== -->
+<div class="wrapper">
+  <!-- Page tip -->
+  <div class="page-tip animated slideInDown">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <p>Please sign in before you proceed. If you are not a member, <a href="<%= new_user_registration_path %>">create an account</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-sm-6">
+        <h3 class="hl top-zero">Sign in to Mysite.com</h3>
+        <hr>
+        <p>Our site supports several methods to verify your identity. Sign in to get instant access to all of our features.</p>
+        <!-- Social icons -->
+        <div class="login-social">
+          <ul>
+            <li id="facebook"><a href="/auth/facebook"><i class="fa fa-facebook"></i></a></li>
+            <li id="twitter"><a href="/auth/twitter"><i class="fa fa-twitter"></i></a></li>
+            <li id="linkedin"><a href="/auth/linkedin"><i class="fa fa-linkedin"></i></a></li>
+            <li id="github"><a href="/auth/github"><i class="fa fa-github"></i></a></li>
+            <li id="google"><a href="/auth/google_oauth2"><i class="fa fa-google-plus"></i></a></li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <!-- Login Box -->
+      <div class="col-md-4 col-sm-6">
+        <div class="form-box">
+          <h4>Sign In</h4>
+          <hr>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form", id: "signin_user" }) do |f| %>
+		        <% if notice %>
+    				  <div class="alert alert-success alert-dismissable">
+    			      <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+    			      <strong>Success!</strong> <%= notice %>
+    			    </div>
+    				<% end %>
+    				<% if alert %>
+    					<div class="alert alert-danger alert-dismissable">
+    			      <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+    			      <strong>Warning!</strong> <%= alert %>
+    			    </div>
+    				<% end %>
+            <div class="form-group">
+                <label class="sr-only" for="user_login">Username or Email</label>
+                <input type="text" class="form-control" id="user_login" name="user[login]" placeholder="Username or Email" autofocus="autofocus">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="user_password">Password</label>
+                <input type="password" class="form-control" id="user_password" name="user[password]" autocomplete="off" placeholder="Password">
+            </div>
+            <div class="checkbox">
+              <% if devise_mapping.rememberable? -%>
+                <%= f.label :remember_me do %>
+				    	    <%= f.check_box :remember_me %> Remember me
+				        <% end %>
+				      <% end -%>
+            </div>
+            <%= f.submit "Sign in", class: "btn btn-green" %>
+          <% end %>
+          <hr>
+          <p>Not registered? <a href="<%= new_user_registration_path %>">Create an Account.</a></p>
+          <div class="pwd-lost">
+            <div class="pwd-lost-q show">Lost your password? <a href="#">Click here to recover.</a></div>
+            <div class="pwd-lost-f hidden">
+              <p class="text-muted">Enter your email address and we will send you a link to reset your password.</p>
+              <%= form_for(resource, as: resource_name, url: password_path(resource_name), remote: true, html: { method: :post, id: 'new_password', class: 'new_password form-inline', role: "form" }) do |f| %>
+			          <%= devise_error_messages! %>
+                <div class="form-group">
+                  <label class="sr-only" for="user_email_reset">Email address</label>
+                  <input type="email" class="form-control" id="user_email_reset" name="user[email]" placeholder="Enter email">
+                </div>
+                <%= f.submit "Send", class: "btn btn-green", id: 'send_reset' %>
+              <% end %>
+              <p id="reset_message" class="error"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

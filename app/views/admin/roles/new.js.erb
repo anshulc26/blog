@@ -1,0 +1,3 @@
+$("#myModal-Window").html("<%= escape_javascript(render partial: 'form', locals: { role: @role }) %>");
+$("#form_type").html("New");
+$("#myModal-Window").modal("show");

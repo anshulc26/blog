@@ -1,0 +1,48 @@
+<div id="content-wrapper">
+  <%= render 'layouts/admin/messages' %>
+  <ul class="breadcrumb breadcrumb-page" style="margin-top: 0px;">
+    <div class="breadcrumb-label text-light-gray">You are here: </div>
+    <li class=""><a href="#">Roles</a></li>
+  </ul>
+  <div class="page-header">
+    <div class="row">
+      <h1 class="col-xs-12 col-sm-4 text-center text-left-sm"><i class="fa fa-tasks page-header-icon"></i>&nbsp;&nbsp;Roles</h1>
+
+      <div class="col-xs-12 col-sm-8">
+        <div class="row">
+          <hr class="visible-xs no-grid-gutter-h">
+          <div class="pull-right col-xs-12 col-sm-auto"><a data-toggle="modal" data-target="#modal-window" data-remote=true href="<%= new_admin_role_path %>" class="btn btn-primary btn-labeled" style="width: 100%;"><span class="btn-label icon fa fa-plus"></span>Create Role</a></div>
+
+          <div class="visible-xs clearfix form-group-margin"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-primary table-responsive">
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="roles">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="center">Name</th>
+              <th class="center">Edit</th>
+              <th class="center">Destroy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @roles.each_with_index do |role, index|%>
+              <tr class="gradeA">
+                <td><%= index + 1 %></td>
+                <td class="center"><%= role.name %></td>
+                <td class="center"><a data-toggle="modal" data-target="#modal-window" data-remote=true href="<%= edit_admin_role_path(role) %>" class="btn btn-primary btn-labeled"><span class="fa fa-edit"></span> Edit</a></td>
+                <td class="center"><a data-toggle="modal" data-target="#modal-window" data-remote=true href="<%= destroy_show_admin_role_path(role) %>" class="btn btn-primary btn-labeled"><span class="fa fa-trash-o"></span> Destroy</a></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

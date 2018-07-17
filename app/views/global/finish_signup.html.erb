@@ -1,0 +1,49 @@
+<!-- Main body
+================== -->
+<div class="wrapper">
+  <div class="section-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <!-- Remove the .animated class if you don't want things to move -->
+          <h1 class="animated slideInLeft"><span>Finish Sign up</span></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 class="hl text-center top-zero">Finish Sign up</h1>
+        <p class="lead text-center">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget consequat sapien. Phasellus ac augue velit. Cras malesuada lectus et purus consequat porttitor. Vivamus a ultrices ante.
+        </p>
+        <br />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="team">
+          <h1 class="font-weight-300">Email</h1>
+          <%= form_for(current_user, as: 'user', url: finish_signup_path(current_user), html: { role: 'form', id: "finish_signup_user" }) do |f| %>
+            <% if @show_error %>
+              <div class="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                Email has already been taken
+              </div>
+            <% end %>
+            <div class="form-group">
+              <div class="controls">
+                <%= f.text_field :email, autofocus: true, value: '', class: 'form-control input-lg', placeholder: 'Please enter your email' %>
+              </div>
+            </div>
+            <p>Please confirm your email address. No spam.</p>
+            <div class="actions">
+              <%= f.submit 'Continue', :class => 'btn btn-blue' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

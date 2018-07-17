@@ -1,0 +1,71 @@
+<!-- Main body
+================== -->
+<div class="wrapper">
+  <!-- Page Tip -->
+  <div class="page-tip animated slideInDown">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <p>Fill out the form below to sign up.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main Form -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-3 signup margin-left-15">
+      <div class="form-box">
+        <h3 class="hl top-zero">Registration</h3>
+        <hr>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { role: "form", :multipart => true, id: "signup_user" }) do |f| %>
+		      <%= devise_error_messages! %>
+          <div class="form-group">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="thumbnail margin-bottom-0">
+                <div class="avatar">
+                  <input id="user-image-file" name="profile_image" type="file" onchange="previewImage(this)" accept="image/*">
+                  <a href="javascript:;" class="thumbnail user-image-open margin-bottom-0">
+                    <img src="/assets/face1.jpg" alt="Avatar" id="preview" class="height-220">
+                  </a>
+                  <!-- Upload new avatar bubble -->
+                  <div class="avatar-bubble">
+                    <a href="javascript:;" class="user-image-open"><i class="fa fa-plus"></i> Upload avatar</a>
+                  </div>
+                </div>
+              </div>
+              <div id="image_error"></div>
+            </div>
+            <div class="col-sm-8">
+            <div class="form-group">
+            <input type="text" class="form-control" id="user_fullname" name="user[fullname]" placeholder="Your name" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="Enter your full name here." data-original-title="Name" autofocus="autofocus">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="user_username" name="user[username]" placeholder="Username" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="Enter your username here." data-original-title="Username">
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control" id="user_email" name="user[email]" placeholder="Enter email" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="Enter a valid email here." data-original-title="Email">
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-6">
+                <input type="password" class="form-control margin-bottom-xs" id="user_password" name="user[password]" placeholder="Password" data-toggle="popover" data-placement="bottom" data-trigger="focus" data-content="Eight symbols minimum." data-original-title="Password" autocomplete="off">
+              </div>
+              <div class="col-sm-6">
+                <input type="password" class="form-control" id="user_password_confirmation" name="user[password_confirmation]" placeholder="Repeat Password" data-toggle="popover" data-trigger="focus" data-content="Make sure you still remember it." data-original-title="Repeat Password" autocomplete="off">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-green">Sign up</button>
+            </div>
+            </div>
+          </div>
+        <% end %>
+        <hr>
+        <p>Already registered? <a href="<%= new_user_session_path %>">Sign in.</a></p>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<%= form_for(@blog_post, html: { role: "form", :multipart => true, id: "new_blog_post" }) do |f| %>
+  <% if @blog_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog_post.errors.count, "error") %> prohibited this blog from being saved:</h2>
+      <ul>
+      <% @blog_post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control", placeholder: "Enter title" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %><br>
+    <%= f.cktext_area :description, :class => 'someclass', :ckeditor => {} %>
+  </div>
+  <div class="form-group">
+    <%= label_tag "blog_post_tags", "Tags" %><br>
+    <select class="js-example-basic-multiple form-control" multiple="multiple" name="blog_post[tags][]">
+      <option value="AL">Alabama</option>
+      <option value="WY">Wyoming</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="blog_post_image">File to Upload</label><br/>
+    <span class="btn btn-success fileinput-button">
+      <i class="glyphicon glyphicon-plus"></i>
+      <span id="add_file">Add file...</span>
+      <%= file_field_tag "blog_post[image]", onchange: "previewName(this)", accept: 'image/*' %>
+    </span>
+    <span id="add_file_name"></span>
+  </div>
+
+  <%= f.submit "Create Blog", class: "btn btn-green" %>
+<% end %>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog">
+    <meta name="author" content="Blog">
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+
+  	<title>Blog</title>
+  	<%= stylesheet_link_tag    "application", media: "all" %>
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href='//fonts.googleapis.com/css?family=Lato:100,300,400'>
+    <link rel="stylesheet" type="text/css" href="/assets/animate.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/elements.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/datepicker3.css">
+    <link rel="stylesheet" type="text/css" href="/assets/main.css">
+    <link rel="stylesheet" type="text/css" href="/assets/select2.min.css">
+
+  	<%= javascript_include_tag "application" %>
+  	<%= csrf_meta_tags %>
+  </head>
+  <body>
+  	<%= render partial: 'layouts/header' %>
+  	<%= yield %>
+  	<%= render partial: 'layouts/footer' %>
+  	
+  	<script src="/assets/bootstrap.min.js"></script>
+    <script src="/assets/jquery.validate.js"></script>
+    <script src="/assets/additional-methods.min.js"></script>
+    <script src="/assets/custom.js"></script>
+    <script src="/assets/scrolltopcontrol.js"></script>
+    <script src="/assets/jquery.isotope.min.js"></script>
+    <script src="/assets/isotope-custom.js"></script>
+    <script src="/assets/bootstrap-datepicker.js"></script>
+    <script src="/assets/select2.min.js"></script>
+  </body>
+</html>

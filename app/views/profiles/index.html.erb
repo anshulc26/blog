@@ -1,0 +1,56 @@
+<!-- Main body
+================== -->
+<div class="wrapper">
+  <% if notice %>
+    <div class="alert alert-success alert-dismissable margin-bottom-0">
+      <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+      <strong>Success!</strong> <%= notice %>
+    </div>
+  <% end %>
+  <% if alert %>
+    <div class="alert alert-danger alert-dismissable margin-bottom-0">
+      <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+      <strong>Warning!</strong> <%= alert %>
+    </div>
+  <% end %>
+  
+  <div class="section-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <!-- Remove the .animated class if you don't want things to move -->
+          <h1 class="animated slideInLeft"><span>Profile</span></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <!-- Profile Menu -->
+      <div class="col-sm-4 col-md-3">
+        <div class="user-menu bottom-15">
+          <ul>
+            <li>
+              <a href="<%= profile_path( username: current_user.username ) %>" class="tab active" id="profile" data-remote="true">
+                <i class="sign fa fa-user bg-green"></i> My Profile <i class="fa fa-chevron-right pull-right"></i>
+              </a>  
+            </li>
+            <li>
+              <a href="<%= edit_profile_path( username: current_user.username ) %>" class="tab" id="edit_profile" data-remote="true">
+                <i class="sign fa fa-edit bg-blue"></i> Edit Profile <i class="fa fa-chevron-right pull-right"></i>
+              </a>  
+            </li>
+            <li>
+              <a href="<%= destroy_user_session_path %>" data-method="delete">
+                <i class="sign fa fa-sign-out bg-amethyst"></i> Sign Out <i class="fa fa-chevron-right pull-right"></i>
+              </a>  
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="tab_content">
+      	<%= render partial: 'profile' %>
+      </div>
+    </div>
+  </div>
+</div>
