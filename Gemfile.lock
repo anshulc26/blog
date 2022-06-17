@@ -1,9 +1,8 @@
 GIT
-  remote: git://github.com/galetahub/ckeditor.git
-  revision: 0efddf9a46bbba4aeda562ec0ea77af738404418
+  remote: https://github.com/galetahub/ckeditor.git
+  revision: 8200ccdbf789669d154b800aab329db8f46aabdc
   specs:
-    ckeditor (4.1.1)
-      cocaine
+    ckeditor (5.1.1)
       orm_adapter (~> 0.5.0)
 
 GEM
@@ -55,12 +54,9 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.7)
-      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     columnize (0.3.6)
+    concurrent-ruby (1.1.9)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -95,7 +91,8 @@ GEM
     http (0.6.3)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
-    i18n (0.6.9)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
